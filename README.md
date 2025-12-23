@@ -12,11 +12,14 @@ Bu proje, **ISO 25010** yazılım kalite standartlarına uygun olarak geliştiri
 
 ### Öne Çıkan Özellikler
 
-*   **⚡ Durum Kontrolü (LightStatus):** Işık durumu anlık olarak görselleştirilir (Açık/Kapalı ikon ve renk değişimi).
+*   **⚡ Durum Kontrolü (LightStatus):** Işık durumu anlık olarak görselleştirilir.
 *   **💡 Parlaklık Ayarı (BrightnessSlider):** %0 ile %100 arasında hassas parlaklık kontrolü.
-*   **🔌 Bağlantı Simülasyonu (Offline Mod):** Gerçek hayat senaryolarını test etmek için "Bağlantıyı Kes/Bağlan" özelliği.
-*   **♿ Erişilebilirlik (A11y):** Renk körü dostu tasarım, minimum 44px buton boyutları ve açıklayıcı hata mesajları.
-*   **🛡️ Hata Yönetimi:** Bağlantı koptuğunda veya hata oluştuğunda kullanıcıyı bilgilendiren **ErrorDisplay** bileşeni.
+*   **🔌 Bağlantı Simülasyonu:** Offline Mod testi.
+*   **🔐 Giriş Akışı:** Splash ekranı ve Google ile giriş simülasyonu.
+*   **⚡ Enerji Sayacı:** Anlık tahmini güç tüketimini gösterir.
+*   **📜 Log Paylaşımı:** Son aktiviteleri listeleyen panel.
+*   **⏱️ Otomatik Kapanma:** 10 saniye sonra ışığı kapatan zamanlayıcı.
+*   **♿ Erişilebilirlik (A11y):** Minimum 44px buton boyutları.
 
 ## 🛠️ Teknolojiler
 
