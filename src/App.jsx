@@ -10,6 +10,8 @@ import EnergyMeter from './components/EnergyMeter';
 import AutoOffTimer from './components/AutoOffTimer';
 import './App.css';
 
+import { toggleLightLogic, validateBrightness } from './logic/lightControl';
+
 function App() {
   const [theme, setTheme] = useState('light');
 
@@ -34,31 +36,44 @@ function App() {
   const [isConnected, setIsConnected] = useState(true);
   const [error, setError] = useState('');
 
+  // Hata mesajını belirli bir süre sonra temizle (useEffect Cleanup Örneği)
   useEffect(() => {
     let timer;
     if (error) {
       timer = setTimeout(() => setError(''), 3000);
     }
-    return () => clearTimeout(timer);
+    // Cleanup function: Bileşen unmount olduğunda veya error değiştiğinde timer'ı temizle
+    return () => {
+      if (timer) clearTimeout(timer);
+    };
   }, [error]);
 
   const toggleLight = useCallback(() => {
-    if (!isConnected) {
-      setError('Bağlantı hatası: Cihaza ulaşılamıyor. (Offline Mod)');
-      addLog('Bağlantı Hatası: Komut iletilemedi.');
-      return;
+    setError(''); // Önceki hataları temizle
+    try {
+      // Mantık katmanını çağır
+      const nextState = toggleLightLogic(isOn, isConnected);
+
+      // Simüle edilmiş gecikme ile state güncelle
+      setTimeout(() => {
+        setIsOn(nextState);
+        addLog(nextState ? 'Işık açıldı.' : 'Işık kapatıldı.');
+      }, 100);
+    } catch (err) {
+      // Hata Yönetimi
+      setError(err.message);
+      addLog(`Hata: ${err.message}`);
     }
-    setTimeout(() => {
-      setIsOn((prev) => {
-        const newState = !prev;
-        addLog(newState ? 'Işık açıldı.' : 'Işık kapatıldı.');
-        return newState;
-      });
-    }, 100);
-  }, [isConnected, addLog]);
+  }, [isOn, isConnected, addLog]);
 
   const handleBrightnessChange = useCallback((value) => {
-    setBrightness(value);
+    try {
+      if (validateBrightness(value)) {
+        setBrightness(value);
+      }
+    } catch (err) {
+      setError(err.message);
+    }
   }, []);
 
   const toggleConnection = useCallback(() => {
