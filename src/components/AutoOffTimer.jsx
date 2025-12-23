@@ -32,16 +32,23 @@ const AutoOffTimer = ({ isOn, onTurnOff }) => {
                     onClick={startTimer}
                     style={{
                         background: 'transparent',
-                        border: '1px solid rgba(255,255,255,0.2)',
-                        color: 'rgba(255,255,255,0.5)',
+                        border: '1px solid var(--text-muted)',
+                        color: 'var(--text-secondary)',
                         padding: '8px 16px',
                         borderRadius: '20px',
                         cursor: 'pointer',
                         fontSize: '11px',
-                        transition: 'all 0.3s'
+                        transition: 'all 0.3s',
+                        fontWeight: '600'
                     }}
-                    onMouseOver={(e) => { e.target.style.color = '#fff'; e.target.style.borderColor = '#fff'; }}
-                    onMouseOut={(e) => { e.target.style.color = 'rgba(255,255,255,0.5)'; e.target.style.borderColor = 'rgba(255,255,255,0.2)'; }}
+                    onMouseOver={(e) => {
+                        e.target.style.color = 'var(--text-primary)';
+                        e.target.style.borderColor = 'var(--text-primary)';
+                    }}
+                    onMouseOut={(e) => {
+                        e.target.style.color = 'var(--text-secondary)';
+                        e.target.style.borderColor = 'var(--text-muted)';
+                    }}
                 >
                     ⏱️ 5sn Sonra Kapat
                 </button>
@@ -56,15 +63,16 @@ const AutoOffTimer = ({ isOn, onTurnOff }) => {
                         borderRadius: '20px',
                         cursor: 'pointer',
                         fontSize: '11px',
+                        fontWeight: 'bold',
                         animation: 'pulse 1s infinite'
                     }}
                 >
                     İptal Et ({timeLeft})
                     <style>{`
             @keyframes pulse {
-              0% { opacity: 1; box-shadow: 0 0 0 rgba(255,152,0,0); }
-              50% { opacity: 0.8; box-shadow: 0 0 10px rgba(255,152,0,0.3); }
-              100% { opacity: 1; box-shadow: 0 0 0 rgba(255,152,0,0); }
+              0% { opacity: 1; }
+              50% { opacity: 0.8; }
+              100% { opacity: 1; }
             }
           `}</style>
                 </button>

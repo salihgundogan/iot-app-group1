@@ -6,22 +6,20 @@ const EnergyMeter = ({ brightness, isOn }) => {
 
     return (
         <div className="energy-meter" style={{
-            position: 'absolute',
-            top: '20px',
-            right: '20px',
-            background: 'rgba(255, 255, 255, 0.05)',
-            padding: '6px 12px',
+            // Absolute yerine relative ve inline stil
+            background: 'var(--glass-bg)',
+            padding: '6px 14px',
             borderRadius: '20px',
-            fontSize: '11px',
-            display: 'flex',
+            fontSize: '12px',
+            display: 'inline-flex', // inline-flex
             alignItems: 'center',
-            gap: '6px',
-            border: '1px solid rgba(255, 255, 255, 0.1)',
+            gap: '8px',
+            border: '1px solid var(--glass-border)',
             backdropFilter: 'blur(4px)',
-            boxShadow: '0 4px 6px rgba(0,0,0,0.1)'
+            boxShadow: 'var(--glass-shadow)'
         }}>
             <span style={{ color: '#4CAF50', textShadow: '0 0 5px rgba(76,175,80,0.5)' }}>⚡</span>
-            <span style={{ fontFamily: 'monospace', fontWeight: 'bold' }}>{watts} W</span>
+            <span style={{ fontFamily: 'monospace', fontWeight: 'bold', color: 'var(--text-primary)' }}>{watts} W</span>
         </div>
     );
 };

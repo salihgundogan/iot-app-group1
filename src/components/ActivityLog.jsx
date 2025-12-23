@@ -12,11 +12,11 @@ const ActivityLog = ({ logs }) => {
         <div className="activity-log" style={{
             marginTop: '20px',
             width: '100%',
-            background: 'rgba(0, 0, 0, 0.3)', // Daha koyu cam
+            background: 'var(--card-bg)', // Değişken kullanımı
             borderRadius: '12px',
             padding: '15px',
             boxSizing: 'border-box',
-            border: '1px solid rgba(255,255,255,0.05)',
+            border: '1px solid var(--glass-border)',
             maxHeight: '150px',
             display: 'flex',
             flexDirection: 'column'
@@ -24,9 +24,10 @@ const ActivityLog = ({ logs }) => {
             <h3 style={{
                 fontSize: '12px',
                 margin: '0 0 10px 0',
-                color: 'rgba(255,255,255,0.5)',
+                color: 'var(--text-secondary)',
                 textTransform: 'uppercase',
-                letterSpacing: '1px'
+                letterSpacing: '1px',
+                fontWeight: 'bold'
             }}>
                 Sistem Kayıtları
             </h3>
@@ -34,19 +35,19 @@ const ActivityLog = ({ logs }) => {
             <div style={{
                 flex: 1,
                 overflowY: 'auto',
-                fontSize: '11px',
+                fontSize: '12px', // Büyütüldü
                 fontFamily: 'monospace',
                 scrollbarWidth: 'thin',
-                scrollbarColor: 'rgba(255,255,255,0.2) transparent'
+                scrollbarColor: 'var(--text-muted) transparent'
             }}>
                 {logs.length === 0 ? (
-                    <div style={{ color: 'rgba(255,255,255,0.3)', fontStyle: 'italic', textAlign: 'center', marginTop: '10px' }}>
+                    <div style={{ color: 'var(--text-muted)', fontStyle: 'italic', textAlign: 'center', marginTop: '10px' }}>
                         Kayıt bulunamadı.
                     </div>
                 ) : (
                     logs.map((log, index) => (
-                        <div key={index} style={{ marginBottom: '6px', color: 'rgba(255,255,255,0.8)', display: 'flex' }}>
-                            <span style={{ color: '#4CAF50', marginRight: '8px', opacity: 0.7 }}>[{log.time}]</span>
+                        <div key={index} style={{ marginBottom: '8px', color: 'var(--text-primary)', display: 'flex' }}>
+                            <span style={{ color: '#4CAF50', marginRight: '8px', fontWeight: 'bold' }}>[{log.time}]</span>
                             <span>{log.message}</span>
                         </div>
                     ))

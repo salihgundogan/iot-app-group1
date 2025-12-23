@@ -11,42 +11,43 @@ import AutoOffTimer from './components/AutoOffTimer';
 import './App.css';
 
 function App() {
-  // --- Faz 3.5: Ekran Yönetimi ve Loglar ---
-  const [screen, setScreen] = useState('splash'); // splash, auth, dashboard
+  const [theme, setTheme] = useState('light'); // Varsayılan Light (Kullanıcının mevcut dediği tema)
+
+  useEffect(() => {
+    document.body.setAttribute('data-theme', theme);
+  }, [theme]);
+
+  const toggleTheme = () => {
+    setTheme(prev => prev === 'dark' ? 'light' : 'dark');
+  };
+
+  const [screen, setScreen] = useState('splash');
   const [logs, setLogs] = useState([]);
 
-  // Log ekleme fonksiyonu (Tarih saatli)
   const addLog = useCallback((message) => {
     const time = new Date().toLocaleTimeString('tr-TR', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
     setLogs(prev => [...prev, { time, message }]);
   }, []);
 
-  // --- Faz 3: Mevcut State'ler ---
   const [isOn, setIsOn] = useState(false);
   const [brightness, setBrightness] = useState(50);
   const [isConnected, setIsConnected] = useState(true);
   const [error, setError] = useState('');
 
-  // Hata mesajını otomatik temizleme
   useEffect(() => {
     let timer;
     if (error) {
-      timer = setTimeout(() => {
-        setError('');
-      }, 3000);
+      timer = setTimeout(() => setError(''), 3000);
     }
     return () => clearTimeout(timer);
   }, [error]);
 
-  // Işık Kontrolü
   const toggleLight = useCallback(() => {
     if (!isConnected) {
       setError('Bağlantı hatası: Cihaza ulaşılamıyor. (Offline Mod)');
       addLog('Bağlantı Hatası: Komut iletilemedi.');
       return;
     }
-
-    // Simüle edilmiş gecikme
     setTimeout(() => {
       setIsOn((prev) => {
         const newState = !prev;
@@ -56,13 +57,10 @@ function App() {
     }, 100);
   }, [isConnected, addLog]);
 
-  // Parlaklık Kontrolü
   const handleBrightnessChange = useCallback((value) => {
     setBrightness(value);
-    // Her değişimde log basmamak için ("debounce" simülasyonu - burada sade bırakıyoruz)
   }, []);
 
-  // Bağlantı Simülasyonu
   const toggleConnection = useCallback(() => {
     try {
       setIsConnected((prev) => {
@@ -82,7 +80,6 @@ function App() {
     }
   }, [addLog]);
 
-  // Otomatik Kapatma
   const handleAutoTurnOff = useCallback(() => {
     if (isOn) {
       setIsOn(false);
@@ -90,37 +87,54 @@ function App() {
     }
   }, [isOn, addLog]);
 
-  // --- Ekran Akış Kontrolü ---
-
   if (screen === 'splash') {
     return <SplashScreen onFinish={() => setScreen('auth')} />;
   }
 
   if (screen === 'auth') {
     return (
-      <div className="app-container" style={{ justifyContent: 'center' }}>
+      <div className="app-container" style={{ justifyContent: 'center', position: 'relative' }}>
+        <button onClick={toggleTheme} className="theme-toggle" style={{ position: 'absolute', top: '20px', right: '20px' }}>
+          {theme === 'dark' ? '☀️' : '🌙'}
+        </button>
         <AuthContainer onLogin={() => {
           setScreen('dashboard');
           addLog('Oturum açıldı: Kullanıcı girişi başarılı.');
-        }} />
+        }} theme={theme} />
       </div>
     );
   }
 
-  // --- Dashboard ---
   return (
     <div className="app-container">
+      {/* Header Alanı */}
       <header className="app-header">
-        <h1>IoT Akıllı Ev Kontrolü</h1>
-        <div className={`connection-badge ${isConnected ? 'online' : 'offline'}`}>
-          {isConnected ? 'Online' : 'Offline'}
+        <div className="heading-wrapper">
+          <h1>IoT Akıllı Ev</h1>
+        </div>
+
+        <div className="header-actions">
+          {/* Badge ve Toggle yan yana */}
+          <div className={`connection-badge ${isConnected ? 'online' : 'offline'}`}>
+            {isConnected ? 'Online' : 'Offline'}
+          </div>
+
+          <button onClick={toggleTheme} className="theme-toggle" title="Temayı Değiştir">
+            {theme === 'dark' ? '☀️' : '🌙'}
+          </button>
         </div>
       </header>
 
-      <EnergyMeter brightness={brightness} isOn={isOn} />
+      {/* EnergyMeter'ı absolute yerine normal akışa aldım veya yerini düzelttim. 
+          En üste, header'ın altına ama content'in üstüne koyabiliriz.
+          Veya header içinde gösterebiliriz. Şimdilik content içinde en üstte.
+      */}
+      <div style={{ width: '100%', display: 'flex', justifyContent: 'flex-end', marginBottom: '10px' }}>
+        <EnergyMeter brightness={brightness} isOn={isOn} />
+      </div>
 
       <main className="app-content">
-        <LightStatus isOn={isOn} />
+        <LightStatus isOn={isOn} theme={theme} />
 
         <div className="controls-wrapper">
           <BrightnessSlider
