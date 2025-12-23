@@ -9,6 +9,7 @@ const ControlPanel = ({ onToggleLight, isLightOn, onToggleConnection, isConnecte
                 disabled={!isConnected || disabled}
                 style={{
                     padding: '12px 24px',
+                    minHeight: '44px',
                     fontSize: '16px',
                     backgroundColor: isLightOn ? '#f44336' : '#4CAF50',
                     color: 'white',
@@ -28,6 +29,7 @@ const ControlPanel = ({ onToggleLight, isLightOn, onToggleConnection, isConnecte
                 onClick={onToggleConnection}
                 style={{
                     padding: '10px 20px',
+                    minHeight: '44px',
                     fontSize: '14px',
                     backgroundColor: '#607D8B',
                     color: 'white',
