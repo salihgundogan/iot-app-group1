@@ -1,6 +1,6 @@
-# 📂 ANTIGRAVITY: IoT Akıllı Ev - Işık Kontrol Arayüzü
+# 📂 IoT Akıllı Ev - Işık Kontrol Arayüzü
 
-**Proje Kodu:** ANTIGRAVITY | **Faz:** 3 (Geliştirme ve Kalite Raporu)
+**Proje Kodu:** IOT-V3 | **Faz:** 3 (Geliştirme ve Kalite Raporu)
 
 Bu proje, **ISO 25010** yazılım kalite standartlarına uygun olarak geliştirilmiş, React tabanlı bir akıllı ev simülasyon arayüzüdür. Kullanıcıların bir ışık kaynağını uzaktan kontrol etmesini, parlaklık seviyesini ayarlamasını ve bağlantı durumlarını simüle etmesini sağlar.
 

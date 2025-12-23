@@ -91,7 +91,7 @@ function App() {
       </main>
 
       <footer className="app-footer">
-        Faz 3: Geliştirme ve Kalite Raporu (Antigravity)
+        Faz 3: Geliştirme ve Kalite Raporu
       </footer>
     </div>
   );
