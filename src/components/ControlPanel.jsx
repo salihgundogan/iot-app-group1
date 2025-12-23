@@ -3,44 +3,32 @@ import PropTypes from 'prop-types';
 
 const ControlPanel = ({ onToggleLight, isLightOn, onToggleConnection, isConnected, disabled }) => {
     return (
-        <div className="control-panel" style={{ marginTop: '30px', display: 'flex', flexDirection: 'column', gap: '15px', alignItems: 'center' }}>
+        <div className="control-panel" style={{ marginTop: '20px', display: 'flex', gap: '15px', width: '100%' }}>
             <button
                 onClick={onToggleLight}
                 disabled={!isConnected || disabled}
+                className="glass-btn"
                 style={{
-                    padding: '12px 24px',
-                    minHeight: '44px',
-                    fontSize: '16px',
-                    backgroundColor: isLightOn ? '#f44336' : '#4CAF50',
-                    color: 'white',
-                    border: 'none',
-                    borderRadius: '8px',
-                    cursor: (!isConnected || disabled) ? 'not-allowed' : 'pointer',
-                    opacity: (!isConnected || disabled) ? 0.6 : 1,
-                    width: '200px',
-                    fontWeight: 'bold',
-                    transition: 'background-color 0.3s'
+                    flex: 1,
+                    background: isLightOn ? 'rgba(244, 67, 54, 0.2)' : 'rgba(76, 175, 80, 0.2)',
+                    borderColor: isLightOn ? 'rgba(244, 67, 54, 0.4)' : 'rgba(76, 175, 80, 0.4)',
+                    color: isLightOn ? '#ff8a80' : '#b9f6ca',
+                    fontWeight: '600'
                 }}
             >
-                {isLightOn ? 'Işığı Kapat' : 'Işığı Aç'}
+                {isLightOn ? 'KAPAT' : 'AÇ'}
             </button>
 
             <button
                 onClick={onToggleConnection}
+                className="glass-btn"
                 style={{
-                    padding: '10px 20px',
-                    minHeight: '44px',
-                    fontSize: '14px',
-                    backgroundColor: '#607D8B',
-                    color: 'white',
-                    border: 'none',
-                    borderRadius: '8px',
-                    cursor: 'pointer',
-                    width: '200px',
-                    transition: 'background-color 0.3s'
+                    flex: 1,
+                    background: isConnected ? 'rgba(255, 255, 255, 0.05)' : 'rgba(33, 150, 243, 0.2)',
+                    color: isConnected ? 'rgba(255,255,255,0.7)' : '#90caf9'
                 }}
             >
-                {isConnected ? 'Bağlantıyı Kes' : 'Bağlan'}
+                {isConnected ? 'BAĞLANTIYI KES' : 'BAĞLAN'}
             </button>
         </div>
     );
@@ -52,10 +40,6 @@ ControlPanel.propTypes = {
     onToggleConnection: PropTypes.func.isRequired,
     isConnected: PropTypes.bool.isRequired,
     disabled: PropTypes.bool
-};
-
-ControlPanel.defaultProps = {
-    disabled: false
 };
 
 export default ControlPanel;

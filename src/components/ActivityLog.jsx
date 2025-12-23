@@ -4,7 +4,6 @@ import PropTypes from 'prop-types';
 const ActivityLog = ({ logs }) => {
     const logEndRef = useRef(null);
 
-    // Yeni log geldiğinde otomatik aşağı kaydır
     useEffect(() => {
         logEndRef.current?.scrollIntoView({ behavior: "smooth" });
     }, [logs]);
@@ -13,21 +12,42 @@ const ActivityLog = ({ logs }) => {
         <div className="activity-log" style={{
             marginTop: '20px',
             width: '100%',
-            maxWidth: '300px',
-            backgroundColor: '#333',
-            borderRadius: '8px',
-            padding: '10px',
-            boxSizing: 'border-box'
+            background: 'rgba(0, 0, 0, 0.3)', // Daha koyu cam
+            borderRadius: '12px',
+            padding: '15px',
+            boxSizing: 'border-box',
+            border: '1px solid rgba(255,255,255,0.05)',
+            maxHeight: '150px',
+            display: 'flex',
+            flexDirection: 'column'
         }}>
-            <h3 style={{ fontSize: '14px', margin: '0 0 10px 0', borderBottom: '1px solid #555', paddingBottom: '5px' }}>Cihaz Günlüğü</h3>
-            <div style={{ maxHeight: '100px', overflowY: 'auto', fontSize: '12px' }}>
+            <h3 style={{
+                fontSize: '12px',
+                margin: '0 0 10px 0',
+                color: 'rgba(255,255,255,0.5)',
+                textTransform: 'uppercase',
+                letterSpacing: '1px'
+            }}>
+                Sistem Kayıtları
+            </h3>
+
+            <div style={{
+                flex: 1,
+                overflowY: 'auto',
+                fontSize: '11px',
+                fontFamily: 'monospace',
+                scrollbarWidth: 'thin',
+                scrollbarColor: 'rgba(255,255,255,0.2) transparent'
+            }}>
                 {logs.length === 0 ? (
-                    <div style={{ color: '#777', fontStyle: 'italic' }}>Henüz işlem yok.</div>
+                    <div style={{ color: 'rgba(255,255,255,0.3)', fontStyle: 'italic', textAlign: 'center', marginTop: '10px' }}>
+                        Kayıt bulunamadı.
+                    </div>
                 ) : (
                     logs.map((log, index) => (
-                        <div key={index} style={{ marginBottom: '5px', color: '#ccc', borderBottom: '1px solid #444', paddingBottom: '2px' }}>
-                            <span style={{ color: '#888', marginRight: '5px', fontSize: '10px' }}>{log.time}</span>
-                            {log.message}
+                        <div key={index} style={{ marginBottom: '6px', color: 'rgba(255,255,255,0.8)', display: 'flex' }}>
+                            <span style={{ color: '#4CAF50', marginRight: '8px', opacity: 0.7 }}>[{log.time}]</span>
+                            <span>{log.message}</span>
                         </div>
                     ))
                 )}

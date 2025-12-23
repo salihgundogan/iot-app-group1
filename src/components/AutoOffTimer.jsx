@@ -16,7 +16,7 @@ const AutoOffTimer = ({ isOn, onTurnOff }) => {
     }, [timeLeft, onTurnOff]);
 
     const startTimer = () => {
-        if (isOn) setTimeLeft(10);
+        if (isOn) setTimeLeft(5);
     };
 
     const cancelTimer = () => {
@@ -26,42 +26,45 @@ const AutoOffTimer = ({ isOn, onTurnOff }) => {
     if (!isOn) return null;
 
     return (
-        <div className="auto-off-timer" style={{ marginTop: '15px' }}>
+        <div className="auto-off-timer" style={{ marginTop: '5px', marginBottom: '15px', width: '100%', textAlign: 'center' }}>
             {timeLeft === null ? (
                 <button
                     onClick={startTimer}
                     style={{
-                        backgroundColor: 'transparent',
-                        border: '1px solid #777',
-                        color: '#ccc',
-                        padding: '5px 10px',
-                        borderRadius: '4px',
+                        background: 'transparent',
+                        border: '1px solid rgba(255,255,255,0.2)',
+                        color: 'rgba(255,255,255,0.5)',
+                        padding: '8px 16px',
+                        borderRadius: '20px',
                         cursor: 'pointer',
-                        fontSize: '12px'
+                        fontSize: '11px',
+                        transition: 'all 0.3s'
                     }}
+                    onMouseOver={(e) => { e.target.style.color = '#fff'; e.target.style.borderColor = '#fff'; }}
+                    onMouseOut={(e) => { e.target.style.color = 'rgba(255,255,255,0.5)'; e.target.style.borderColor = 'rgba(255,255,255,0.2)'; }}
                 >
-                    ⏱️ 10sn Sonra Kapat
+                    ⏱️ 5sn Sonra Kapat
                 </button>
             ) : (
                 <button
                     onClick={cancelTimer}
                     style={{
-                        backgroundColor: '#FF9800',
-                        border: 'none',
-                        color: 'white',
-                        padding: '5px 10px',
-                        borderRadius: '4px',
+                        background: 'rgba(255, 152, 0, 0.2)',
+                        border: '1px solid rgba(255, 152, 0, 0.5)',
+                        color: '#FF9800',
+                        padding: '8px 16px',
+                        borderRadius: '20px',
                         cursor: 'pointer',
-                        fontSize: '12px',
+                        fontSize: '11px',
                         animation: 'pulse 1s infinite'
                     }}
                 >
                     İptal Et ({timeLeft})
                     <style>{`
             @keyframes pulse {
-              0% { opacity: 1; }
-              50% { opacity: 0.7; }
-              100% { opacity: 1; }
+              0% { opacity: 1; box-shadow: 0 0 0 rgba(255,152,0,0); }
+              50% { opacity: 0.8; box-shadow: 0 0 10px rgba(255,152,0,0.3); }
+              100% { opacity: 1; box-shadow: 0 0 0 rgba(255,152,0,0); }
             }
           `}</style>
                 </button>

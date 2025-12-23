@@ -6,56 +6,64 @@ const AuthContainer = ({ onLogin }) => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        // Frontend simülasyonu: Her türlü başarılı
         onLogin();
     };
 
     const toggleView = () => setIsLoginView(!isLoginView);
 
     return (
-        <div className="auth-container" style={{
+        <div style={{
             width: '100%',
             maxWidth: '350px',
-            padding: '30px',
-            backgroundColor: '#333',
-            borderRadius: '12px',
-            boxShadow: '0 8px 32px rgba(0,0,0,0.3)',
-            textAlign: 'center'
+            padding: '40px',
+            background: 'rgba(255, 255, 255, 0.05)',
+            borderRadius: '24px',
+            boxShadow: '0 8px 32px 0 rgba(0, 0, 0, 0.37)',
+            backdropFilter: 'blur(10px)',
+            border: '1px solid rgba(255, 255, 255, 0.1)',
+            textAlign: 'center',
+            display: 'flex',
+            flexDirection: 'column',
+            gap: '20px'
         }}>
-            <h2 style={{ marginBottom: '20px', color: '#fff' }}>
-                {isLoginView ? 'Giriş Yap' : 'Kayıt Ol'}
+            <h2 style={{ margin: 0, color: 'white', fontWeight: 300, fontSize: '24px' }}>
+                {isLoginView ? 'Hoş Geldiniz' : 'Hesap Oluştur'}
             </h2>
+            <p style={{ margin: 0, fontSize: '13px', color: 'rgba(255,255,255,0.5)' }}>
+                Akıllı evinizi yönetmek için giriş yapın.
+            </p>
 
-            <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '15px' }}>
+            <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '15px', marginTop: '10px' }}>
                 {!isLoginView && (
                     <input type="text" placeholder="Ad Soyad" required style={inputStyle} />
                 )}
-                <input type="email" placeholder="E-posta" required style={inputStyle} />
-                <input type="password" placeholder="Şifre" required style={inputStyle} />
+                <input type="email" placeholder="E-posta: user@iot.com" required style={inputStyle} />
+                <input type="password" placeholder="Şifre: 123456" required style={inputStyle} />
 
-                <button type="submit" style={submitButtonStyle}>
+                <button type="submit" className="glass-btn" style={submitButtonStyle}>
                     {isLoginView ? 'Giriş Yap' : 'Kayıt Ol'}
                 </button>
             </form>
 
-            <div style={{ margin: '20px 0', borderTop: '1px solid #555', position: 'relative' }}>
+            <div style={{ position: 'relative', borderTop: '1px solid rgba(255,255,255,0.1)', margin: '10px 0' }}>
                 <span style={{
                     position: 'absolute',
                     top: '-10px',
                     left: '50%',
                     transform: 'translateX(-50%)',
-                    backgroundColor: '#333',
+                    background: '#2a2d3e', // Arkaplana uydurmak zor, solid renk verdim mecburen
                     padding: '0 10px',
-                    color: '#888',
-                    fontSize: '12px'
+                    color: 'rgba(255,255,255,0.4)',
+                    fontSize: '11px',
+                    borderRadius: '10px'
                 }}>VEYA</span>
             </div>
 
-            <button type="button" onClick={onLogin} style={googleButtonStyle}>
-                <span style={{ marginRight: '10px' }}>G</span> Google ile {isLoginView ? 'Giriş' : 'Kayıt'}
+            <button type="button" onClick={onLogin} className="glass-btn" style={googleButtonStyle}>
+                <span style={{ marginRight: '10px' }}>G</span> Google ile Devam Et
             </button>
 
-            <p style={{ marginTop: '20px', fontSize: '14px', color: '#aaa' }}>
+            <p style={{ fontSize: '12px', color: 'rgba(255,255,255,0.4)', marginTop: '10px' }}>
                 {isLoginView ? 'Hesabın yok mu?' : 'Zaten hesabın var mı?'}
                 <button
                     onClick={toggleView}
@@ -64,8 +72,9 @@ const AuthContainer = ({ onLogin }) => {
                         border: 'none',
                         color: '#FFD700',
                         cursor: 'pointer',
+                        marginLeft: '5px',
                         textDecoration: 'underline',
-                        marginLeft: '5px'
+                        fontSize: '12px'
                     }}
                 >
                     {isLoginView ? 'Kayıt Ol' : 'Giriş Yap'}
@@ -76,39 +85,31 @@ const AuthContainer = ({ onLogin }) => {
 };
 
 const inputStyle = {
-    padding: '12px',
-    borderRadius: '6px',
-    border: '1px solid #555',
-    backgroundColor: '#444',
+    padding: '14px',
+    borderRadius: '12px',
+    border: '1px solid rgba(255, 255, 255, 0.1)',
+    backgroundColor: 'rgba(0, 0, 0, 0.2)',
     color: 'white',
     width: '100%',
-    boxSizing: 'border-box'
+    boxSizing: 'border-box',
+    outline: 'none',
+    fontSize: '14px',
+    transition: 'border-color 0.3s'
 };
 
 const submitButtonStyle = {
-    padding: '12px',
-    borderRadius: '6px',
-    border: 'none',
-    backgroundColor: '#4CAF50',
-    color: 'white',
+    background: 'linear-gradient(45deg, #FFD700, #FFA500)',
+    color: '#000',
     fontWeight: 'bold',
-    cursor: 'pointer',
-    minHeight: '44px' // A11y
+    border: 'none',
+    boxShadow: '0 4px 15px rgba(255, 215, 0, 0.3)'
 };
 
 const googleButtonStyle = {
-    padding: '12px',
-    borderRadius: '6px',
-    border: '1px solid #555',
-    backgroundColor: 'white',
-    color: '#333',
-    fontWeight: 'bold',
-    cursor: 'pointer',
-    width: '100%',
+    background: 'rgba(255,255,255,0.1)',
     display: 'flex',
-    alignItems: 'center',
     justifyContent: 'center',
-    minHeight: '44px'
+    alignItems: 'center'
 };
 
 AuthContainer.propTypes = {
