@@ -11,7 +11,7 @@ import AutoOffTimer from './components/AutoOffTimer';
 import './App.css';
 
 function App() {
-  const [theme, setTheme] = useState('light'); // Varsayılan Light (Kullanıcının mevcut dediği tema)
+  const [theme, setTheme] = useState('light');
 
   useEffect(() => {
     document.body.setAttribute('data-theme', theme);
@@ -114,7 +114,6 @@ function App() {
         </div>
 
         <div className="header-actions">
-          {/* Badge ve Toggle yan yana */}
           <div className={`connection-badge ${isConnected ? 'online' : 'offline'}`}>
             {isConnected ? 'Online' : 'Offline'}
           </div>
@@ -122,13 +121,21 @@ function App() {
           <button onClick={toggleTheme} className="theme-toggle" title="Temayı Değiştir">
             {theme === 'dark' ? '☀️' : '🌙'}
           </button>
+
+          <button
+            onClick={() => {
+              setScreen('auth');
+              addLog('Oturum kapatıldı.');
+            }}
+            className="theme-toggle"
+            title="Çıkış Yap"
+            style={{ marginLeft: '5px' }}
+          >
+            🚪
+          </button>
         </div>
       </header>
 
-      {/* EnergyMeter'ı absolute yerine normal akışa aldım veya yerini düzelttim. 
-          En üste, header'ın altına ama content'in üstüne koyabiliriz.
-          Veya header içinde gösterebiliriz. Şimdilik content içinde en üstte.
-      */}
       <div style={{ width: '100%', display: 'flex', justifyContent: 'flex-end', marginBottom: '10px' }}>
         <EnergyMeter brightness={brightness} isOn={isOn} />
       </div>
