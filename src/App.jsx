@@ -3,16 +3,31 @@ import LightStatus from './components/LightStatus';
 import BrightnessSlider from './components/BrightnessSlider';
 import ControlPanel from './components/ControlPanel';
 import ErrorDisplay from './components/ErrorDisplay';
+import SplashScreen from './components/SplashScreen';
+import AuthContainer from './components/AuthContainer';
+import ActivityLog from './components/ActivityLog';
+import EnergyMeter from './components/EnergyMeter';
+import AutoOffTimer from './components/AutoOffTimer';
 import './App.css';
 
 function App() {
-  // State tanımları (R2 - Ortak State Yönetimi)
+  // --- Faz 3.5: Ekran Yönetimi ve Loglar ---
+  const [screen, setScreen] = useState('splash'); // splash, auth, dashboard
+  const [logs, setLogs] = useState([]);
+
+  // Log ekleme fonksiyonu (Tarih saatli)
+  const addLog = useCallback((message) => {
+    const time = new Date().toLocaleTimeString('tr-TR', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
+    setLogs(prev => [...prev, { time, message }]);
+  }, []);
+
+  // --- Faz 3: Mevcut State'ler ---
   const [isOn, setIsOn] = useState(false);
   const [brightness, setBrightness] = useState(50);
   const [isConnected, setIsConnected] = useState(true);
   const [error, setError] = useState('');
 
-  // Hata mesajını otomatik temizleme (R6 - Bellek Sızıntısı Önlemi)
+  // Hata mesajını otomatik temizleme
   useEffect(() => {
     let timer;
     if (error) {
@@ -20,37 +35,44 @@ function App() {
         setError('');
       }, 3000);
     }
-    return () => clearTimeout(timer); // Cleanup function
+    return () => clearTimeout(timer);
   }, [error]);
 
-  // Işık Kontrolü (FR-1, NFR-1 Performans)
+  // Işık Kontrolü
   const toggleLight = useCallback(() => {
     if (!isConnected) {
       setError('Bağlantı hatası: Cihaza ulaşılamıyor. (Offline Mod)');
+      addLog('Bağlantı Hatası: Komut iletilemedi.');
       return;
     }
 
-    // Simüle edilmiş gecikme testi (NFR-1)
+    // Simüle edilmiş gecikme
     setTimeout(() => {
-      setIsOn((prev) => !prev);
-    }, 100); // 500ms altında, 100ms makul
-  }, [isConnected]);
+      setIsOn((prev) => {
+        const newState = !prev;
+        addLog(newState ? 'Işık açıldı.' : 'Işık kapatıldı.');
+        return newState;
+      });
+    }, 100);
+  }, [isConnected, addLog]);
 
-  // Parlaklık Kontrolü (FR-2)
+  // Parlaklık Kontrolü
   const handleBrightnessChange = useCallback((value) => {
     setBrightness(value);
+    // Her değişimde log basmamak için ("debounce" simülasyonu - burada sade bırakıyoruz)
   }, []);
 
-  // Bağlantı Simülasyonu (FR-3, NFR-2)
+  // Bağlantı Simülasyonu
   const toggleConnection = useCallback(() => {
-    // try-catch bloğu (R4 - Hata Yönetimi) - Simülasyon için sembolik
     try {
       setIsConnected((prev) => {
         const newState = !prev;
         if (!newState) {
           setError('Cihaz bağlantısı kesildi.');
+          addLog('Sistem: Bağlantı Koptu (Offline)');
         } else {
           setError('');
+          addLog('Sistem: Bağlantı Kuruldu (Online)');
         }
         return newState;
       });
@@ -58,8 +80,34 @@ function App() {
       setError('Bağlantı işlemi sırasında beklenmeyen hata.');
       console.error(err);
     }
-  }, []);
+  }, [addLog]);
 
+  // Otomatik Kapatma
+  const handleAutoTurnOff = useCallback(() => {
+    if (isOn) {
+      setIsOn(false);
+      addLog('Zamanlayıcı: Işık otomatik kapatıldı.');
+    }
+  }, [isOn, addLog]);
+
+  // --- Ekran Akış Kontrolü ---
+
+  if (screen === 'splash') {
+    return <SplashScreen onFinish={() => setScreen('auth')} />;
+  }
+
+  if (screen === 'auth') {
+    return (
+      <div className="app-container" style={{ justifyContent: 'center' }}>
+        <AuthContainer onLogin={() => {
+          setScreen('dashboard');
+          addLog('Oturum açıldı: Kullanıcı girişi başarılı.');
+        }} />
+      </div>
+    );
+  }
+
+  // --- Dashboard ---
   return (
     <div className="app-container">
       <header className="app-header">
@@ -68,6 +116,8 @@ function App() {
           {isConnected ? 'Online' : 'Offline'}
         </div>
       </header>
+
+      <EnergyMeter brightness={brightness} isOn={isOn} />
 
       <main className="app-content">
         <LightStatus isOn={isOn} />
@@ -79,6 +129,8 @@ function App() {
             disabled={!isOn || !isConnected}
           />
 
+          <AutoOffTimer isOn={isOn} onTurnOff={handleAutoTurnOff} />
+
           <ControlPanel
             onToggleLight={toggleLight}
             isLightOn={isOn}
@@ -88,6 +140,8 @@ function App() {
         </div>
 
         <ErrorDisplay message={error} />
+
+        <ActivityLog logs={logs} />
       </main>
 
       <footer className="app-footer">
