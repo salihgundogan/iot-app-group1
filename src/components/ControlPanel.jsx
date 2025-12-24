@@ -7,12 +7,9 @@ const ControlPanel = ({ onToggleLight, isLightOn, onToggleConnection, isConnecte
             <button
                 onClick={onToggleLight}
                 disabled={!isConnected || disabled}
-                className="glass-btn"
+                className={`glass-btn ${isLightOn ? 'power-on' : 'power-off'}`}
                 style={{
                     flex: 1,
-                    background: isLightOn ? 'rgba(244, 67, 54, 0.2)' : 'rgba(76, 175, 80, 0.2)',
-                    borderColor: isLightOn ? 'rgba(244, 67, 54, 0.4)' : 'rgba(76, 175, 80, 0.4)',
-                    color: isLightOn ? '#ff8a80' : '#b9f6ca',
                     fontWeight: '600'
                 }}
             >
@@ -21,11 +18,9 @@ const ControlPanel = ({ onToggleLight, isLightOn, onToggleConnection, isConnecte
 
             <button
                 onClick={onToggleConnection}
-                className="glass-btn"
+                className={`glass-btn ${isConnected ? 'connected' : 'disconnected'}`}
                 style={{
-                    flex: 1,
-                    background: isConnected ? 'rgba(255, 255, 255, 0.05)' : 'rgba(33, 150, 243, 0.2)',
-                    color: isConnected ? 'rgba(255,255,255,0.7)' : '#90caf9'
+                    flex: 1
                 }}
             >
                 {isConnected ? 'BAĞLANTIYI KES' : 'BAĞLAN'}

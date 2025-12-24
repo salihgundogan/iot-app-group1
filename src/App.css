@@ -3,55 +3,50 @@
 
 :root {
   /* LIGHT: Şimdiki görünüm */
-  --bg-gradient: linear-gradient(135deg, #1f1c2c 0%, #928dab 100%);
-  --bg-image: url('https://images.unsplash.com/photo-1550684848-fac1c5b4e853?q=80&w=2070&auto=format&fit=crop');
-  /* Light modda yazının okunması için paneli daha opak ve koyu yapıyoruz (Kullanıcı şeffaf istedi ama yazı okunmuyor dedi, o yüzden blur ve opaklık dengesi) */
-  --glass-bg: rgba(255, 255, 255, 0.1);
-  --glass-border: rgba(255, 255, 255, 0.3);
-  --glass-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
-  --text-primary: #ffffff;
-  --text-secondary: rgba(255, 255, 255, 0.9);
-  --text-muted: rgba(255, 255, 255, 0.6);
-  --accent-color: #FFD700;
-  --btn-bg: rgba(255, 255, 255, 0.2);
-  --btn-hover: rgba(255, 255, 255, 0.3);
-  --card-bg: rgba(0, 0, 0, 0.2);
-  --overlay-bg: rgba(0, 0, 0, 0.3);
+  --bg-gradient: none;
+  --bg-image: url('./assets/acik.png');
+  /* Light modda koyu yazı */
+  --glass-bg: rgba(255, 255, 255, 0.6);
+  /* Yazının okunması için biraz daha opak */
+  --glass-border: rgba(0, 0, 0, 0.1);
+  --glass-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.15);
+  --text-primary: #1a1a1a;
+  --text-secondary: #4a4a4a;
+  --text-muted: #666666;
+  --accent-color: #2e7d32;
+  /* Koyu yeşil tonu */
+  --btn-bg: rgba(0, 0, 0, 0.05);
+  --btn-hover: rgba(0, 0, 0, 0.1);
+  --card-bg: rgba(255, 255, 255, 0.5);
+  --overlay-bg: rgba(255, 255, 255, 0.2);
   /* Slider Colors */
-  --slider-track: rgba(255, 255, 255, 0.3);
-  --slider-thumb: #fff;
-  --slider-active: #FFD700;
+  --slider-track: rgba(0, 0, 0, 0.1);
+  --slider-thumb: #333;
+  --slider-active: #2e7d32;
 }
 
 [data-theme="dark"] {
   /* DARK: Simsiyah Tema */
-  --bg-gradient: linear-gradient(135deg, #000000 0%, #1a1a1a 100%);
-  --bg-image: none;
-  --glass-bg: rgba(20, 20, 20, 0.85);
-  --glass-border: rgba(50, 50, 50, 0.8);
+  --bg-gradient: none;
+  --bg-image: url('./assets/koyu.png');
+
+  --glass-bg: rgba(0, 0, 0, 0.65);
+  --glass-border: rgba(255, 255, 255, 0.1);
   --glass-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.8);
   --text-primary: #e0e0e0;
   --text-secondary: #aaaaaa;
-  --text-muted: #666666;
+  --text-muted: #888888;
   --accent-color: #BB86FC;
-  --btn-bg: rgba(50, 50, 50, 0.6);
-  --btn-hover: rgba(70, 70, 70, 0.8);
-  --card-bg: rgba(0, 0, 0, 0.6);
-  --overlay-bg: rgba(0, 0, 0, 0.9);
-  --slider-track: rgba(255, 255, 255, 0.1);
-  --slider-thumb: #333;
+  --btn-bg: rgba(255, 255, 255, 0.1);
+  --btn-hover: rgba(255, 255, 255, 0.2);
+  --card-bg: rgba(0, 0, 0, 0.4);
+  --overlay-bg: rgba(0, 0, 0, 0.7);
+  --slider-track: rgba(255, 255, 255, 0.2);
+  --slider-thumb: #eee;
   --slider-active: #BB86FC;
 }
 
-/* Light Tema İyileştirmesi (Yazı Görünürlüğü) */
-/* Eğer varsayılan tema (root) kullanıyorsak ve arka plan resimliyse, paneli biraz daha belirgin yapalım */
-:root:not([data-theme="dark"]) .app-container {
-  background: rgba(0, 0, 0, 0.25);
-  /* Hafif karart */
-  --text-primary: #ffffff;
-  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
-  /* Yazıya gölge */
-}
+
 
 body {
   margin: 0;
@@ -268,6 +263,68 @@ button {
   font-size: 14px;
   font-weight: 600;
   backdrop-filter: blur(4px);
+}
+
+/* --- DURUMA GÖRE BUTON RENKLERİ --- */
+
+/* IŞIK BUTONU */
+/* Işık Açıkken (Kırmızı - Kapat Modu) */
+.glass-btn.power-on {
+  background: rgba(244, 67, 54, 0.15);
+  border-color: rgba(244, 67, 54, 0.4);
+  color: #ef5350;
+  /* Dark: Açık Kırmızı */
+}
+
+/* Light Mod: Koyu Kırmızı */
+:root:not([data-theme="dark"]) .glass-btn.power-on {
+  color: #c62828;
+  border-color: rgba(198, 40, 40, 0.5);
+  background: rgba(198, 40, 40, 0.1);
+}
+
+/* Işık Kapalıyken (Yeşil - Aç Modu) */
+.glass-btn.power-off {
+  background: rgba(76, 175, 80, 0.15);
+  border-color: rgba(76, 175, 80, 0.4);
+  color: #66bb6a;
+  /* Dark: Açık Yeşil */
+}
+
+/* Light Mod: Koyu Yeşil */
+:root:not([data-theme="dark"]) .glass-btn.power-off {
+  color: #2e7d32;
+  border-color: rgba(46, 125, 50, 0.5);
+  background: rgba(46, 125, 50, 0.1);
+}
+
+/* BAĞLANTI BUTONU */
+/* Bağlıyken (Gri/Nötr - Bağlantıyı Kes Modu) */
+.glass-btn.connected {
+  background: var(--btn-bg);
+  color: var(--text-muted);
+  /* Dark: Gri */
+}
+
+/* Light Mod: Koyu Gri */
+:root:not([data-theme="dark"]) .glass-btn.connected {
+  color: #555;
+  background: rgba(0, 0, 0, 0.05);
+}
+
+/* Bağlı Değilken (Mavi - Bağlan Modu) */
+.glass-btn.disconnected {
+  background: rgba(33, 150, 243, 0.15);
+  border-color: rgba(33, 150, 243, 0.4);
+  color: #42a5f5;
+  /* Dark: Açık Mavi */
+}
+
+/* Light Mod: Koyu Mavi */
+:root:not([data-theme="dark"]) .glass-btn.disconnected {
+  color: #1565c0;
+  border-color: rgba(21, 101, 192, 0.5);
+  background: rgba(21, 101, 192, 0.1);
 }
 
 /* Mobilde daha küçük butonlar */

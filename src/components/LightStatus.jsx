@@ -40,7 +40,9 @@ const LightStatus = ({ isOn, brightness, theme }) => {
             </div>
             <h2 style={{
                 marginTop: '15px',
-                color: isOn ? `rgba(255, 215, 0, ${0.5 + scale * 0.5})` : 'var(--text-muted)',
+                color: isOn
+                    ? (theme === 'light' ? '#d32f2f' : `rgba(255, 215, 0, ${0.5 + scale * 0.5})`) // Light modda kırmızımsı/canlı, Dark modda sarı
+                    : 'var(--text-muted)',
                 fontSize: '13px',
                 letterSpacing: '1.5px',
                 textTransform: 'uppercase',
