@@ -65,6 +65,10 @@ proje3/
 └── index.html            # Ana HTML şablonu
 ```
 
+## 📊 Kalite ve Test Raporu
+
+Projenin ISO 25010 standartlarına göre analizi ve test sonuçları için [QUALITY_REPORT.md](./QUALITY_REPORT.md) dosyasını inceleyebilirsiniz.
+
 ## 👥 Proje Ekibi
 
 *   **Zeynep:** Frontend Geliştirme & UI Tasarımı (Faz 3 Sorumlusu)
