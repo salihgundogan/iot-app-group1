@@ -15,7 +15,7 @@ const AuthContainer = ({ onLogin, theme, toggleTheme }) => {
         <div style={{
             width: '100%',
             maxWidth: '350px',
-            padding: '40px',
+            padding: '30px 25px',
             background: 'var(--glass-bg)',
             borderRadius: '24px',
             boxShadow: 'var(--glass-shadow)',
@@ -24,21 +24,21 @@ const AuthContainer = ({ onLogin, theme, toggleTheme }) => {
             textAlign: 'center',
             display: 'flex',
             flexDirection: 'column',
-            gap: '20px',
+            gap: '18px',
             position: 'relative'
         }}>
             <button
                 onClick={toggleTheme}
                 className="theme-toggle"
-                style={{ position: 'absolute', top: '20px', right: '20px' }}
+                style={{ position: 'absolute', top: '15px', right: '15px' }}
                 title="Temayı Değiştir"
             >
                 {theme === 'dark' ? '☀️' : '🌙'}
             </button>
-            <h2 style={{ margin: 0, color: 'var(--text-primary)', fontWeight: 600, fontSize: '24px' }}>
+            <h2 style={{ margin: 0, color: 'var(--text-primary)', fontWeight: 600, fontSize: '22px' }}>
                 {isLoginView ? 'Hoş Geldiniz' : 'Hesap Oluştur'}
             </h2>
-            <p style={{ margin: 0, fontSize: '13px', color: 'var(--text-secondary)' }}>
+            <p style={{ margin: 0, fontSize: '12px', color: 'var(--text-secondary)' }}>
                 Akıllı evinizi yönetmek için giriş yapın.
             </p>
 
@@ -95,7 +95,7 @@ const AuthContainer = ({ onLogin, theme, toggleTheme }) => {
 };
 
 const inputStyle = {
-    padding: '14px',
+    padding: '12px',
     borderRadius: '12px',
     border: '1px solid var(--glass-border)',
     backgroundColor: 'var(--btn-bg)',
@@ -103,7 +103,7 @@ const inputStyle = {
     width: '100%',
     boxSizing: 'border-box',
     outline: 'none',
-    fontSize: '14px',
+    fontSize: '13px',
     transition: 'border-color 0.3s'
 };
 

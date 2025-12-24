@@ -14,11 +14,11 @@ const LightStatus = ({ isOn, brightness, theme }) => {
         : `rgba(255, 215, 0, ${opacity * 0.6})`;
 
     return (
-        <div className="light-status-container" style={{ textAlign: 'center', padding: '20px' }}>
+        <div className="light-status-container" style={{ textAlign: 'center', padding: '15px' }}>
             <div
                 style={{
-                    width: '140px',
-                    height: '140px',
+                    width: '120px',
+                    height: '120px',
                     borderRadius: '50%',
                     background: isOn
                         ? `radial-gradient(circle, rgba(255,215,0,${opacity}) 0%, rgba(255,215,0,${opacity * 0.2}) 70%)`
@@ -28,21 +28,21 @@ const LightStatus = ({ isOn, brightness, theme }) => {
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'center',
-                    fontSize: '56px',
+                    fontSize: '48px',
                     boxShadow: isOn
                         ? `0 0 ${shadowIntensity}px ${shadowColor}, inset 0 0 ${glowIntensity}px rgba(255, 255, 255, ${opacity})`
                         : 'inset 0 0 20px rgba(0,0,0,0.1)',
-                    transition: 'all 0.3s ease-out', // Parlaklık değişimi için daha akıcı geçiş
+                    transition: 'all 0.3s ease-out',
                     backdropFilter: 'blur(5px)'
                 }}
             >
                 {isOn ? '💡' : '🌑'}
             </div>
             <h2 style={{
-                marginTop: '20px',
+                marginTop: '15px',
                 color: isOn ? `rgba(255, 215, 0, ${0.5 + scale * 0.5})` : 'var(--text-muted)',
-                fontSize: '14px',
-                letterSpacing: '2px',
+                fontSize: '13px',
+                letterSpacing: '1.5px',
                 textTransform: 'uppercase',
                 fontWeight: 'bold',
                 transition: 'color 0.3s ease'
