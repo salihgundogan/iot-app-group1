@@ -1,4 +1,4 @@
-import { toggleLightLogic, validateBrightness, LightError } from './lightControl';
+import { toggleLightLogic, validateBrightness, LightError } from '../../src/logic/lightControl';
 
 describe('Light Control Logic', () => {
     describe('toggleLightLogic', () => {

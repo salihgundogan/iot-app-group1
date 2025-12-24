@@ -1,0 +1,13 @@
+
+> client@0.0.0 test
+> jest
+
+PASS tests/unit/lightControl.test.js
+PASS tests/system/UserFlow.system.test.jsx
+PASS tests/integration/AppLogic.integration.test.jsx (5.92 s)
+
+Test Suites: 3 passed, 3 total
+Tests:       9 passed, 9 total
+Snapshots:   0 total
+Time:        6.282 s
+Ran all test suites.
