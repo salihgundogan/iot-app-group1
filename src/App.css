@@ -112,6 +112,18 @@ body::before {
   }
 }
 
+.auth-wrapper {
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.auth-container-nested {
+  position: relative;
+}
+
 .app-header {
   width: 100%;
   display: flex;

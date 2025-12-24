@@ -108,14 +108,15 @@ function App() {
 
   if (screen === 'auth') {
     return (
-      <div className="app-container" style={{ justifyContent: 'center', position: 'relative' }}>
-        <button onClick={toggleTheme} className="theme-toggle" style={{ position: 'absolute', top: '20px', right: '20px' }}>
-          {theme === 'dark' ? '☀️' : '🌙'}
-        </button>
-        <AuthContainer onLogin={() => {
-          setScreen('dashboard');
-          addLog('Oturum açıldı: Kullanıcı girişi başarılı.');
-        }} theme={theme} />
+      <div className="auth-wrapper">
+        <AuthContainer
+          onLogin={() => {
+            setScreen('dashboard');
+            addLog('Oturum açıldı: Kullanıcı girişi başarılı.');
+          }}
+          theme={theme}
+          toggleTheme={toggleTheme}
+        />
       </div>
     );
   }
@@ -156,7 +157,7 @@ function App() {
       </div>
 
       <main className="app-content">
-        <LightStatus isOn={isOn} theme={theme} />
+        <LightStatus isOn={isOn} brightness={brightness} theme={theme} />
 
         <div className="controls-wrapper">
           <BrightnessSlider

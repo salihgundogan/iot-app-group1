@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 
-const AuthContainer = ({ onLogin }) => {
+const AuthContainer = ({ onLogin, theme, toggleTheme }) => {
     const [isLoginView, setIsLoginView] = useState(true);
 
     const handleSubmit = (e) => {
@@ -24,8 +24,17 @@ const AuthContainer = ({ onLogin }) => {
             textAlign: 'center',
             display: 'flex',
             flexDirection: 'column',
-            gap: '20px'
+            gap: '20px',
+            position: 'relative'
         }}>
+            <button
+                onClick={toggleTheme}
+                className="theme-toggle"
+                style={{ position: 'absolute', top: '20px', right: '20px' }}
+                title="Temayı Değiştir"
+            >
+                {theme === 'dark' ? '☀️' : '🌙'}
+            </button>
             <h2 style={{ margin: 0, color: 'var(--text-primary)', fontWeight: 600, fontSize: '24px' }}>
                 {isLoginView ? 'Hoş Geldiniz' : 'Hesap Oluştur'}
             </h2>
@@ -115,7 +124,9 @@ const googleButtonStyle = {
 };
 
 AuthContainer.propTypes = {
-    onLogin: PropTypes.func.isRequired
+    onLogin: PropTypes.func.isRequired,
+    theme: PropTypes.string,
+    toggleTheme: PropTypes.func
 };
 
 export default AuthContainer;
